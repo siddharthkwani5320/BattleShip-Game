@@ -38,43 +38,54 @@ func Play(player *component.Player, board *component.Board) {
 	if tries < 15 {
 		tries = 15
 	}
-	for i = 0; i < tries; i++ {
+	for i = 1; i <= tries; i++ {
+		fmt.Println("No. Of Tries Left With you:", (tries - i + 1))
+		var row, col int
+		var err error
 		fmt.Println("Current Board")
 		board.PrintPlayerBoard()
-		fmt.Println("Enter the Row you want to hit:")
-		//User Input of Row
-		Brow, _ := reader.ReadString('\n')
-		Brow = strings.TrimSpace(Brow)
-		row, err := strconv.Atoi(Brow)
-		if err != nil {
-			fmt.Println("Error:", err)
-			continue
+		for {
+			fmt.Println("Enter the Row you want to hit:")
+			//User Input of Row
+			Brow, _ := reader.ReadString('\n')
+			Brow = strings.TrimSpace(Brow)
+			row, err = strconv.Atoi(Brow)
+			if err != nil {
+				fmt.Println("Error:", err)
+				continue
+			}
+			//Check If its a Valid Row
+			if row >= board.GetRow() || row < 0 {
+				fmt.Println("Please Enter within 0 to ", board.GetRow())
+				continue
+			}
+			break
 		}
-		//Check If its a Valid Row
-		if int(row) >= board.GetRow() {
-			fmt.Println("Please Enter within 0 to ", board.GetRow())
-			continue
-		}
-		//User Input of Column
-		fmt.Println("Enter the Column you want to hit:")
-		Bcol, _ := reader.ReadString('\n')
-		Bcol = strings.TrimSpace(Bcol)
-		col, err := strconv.Atoi(Bcol)
-		if err != nil {
-			fmt.Println("Error:", err)
-			continue
-		}
-		//Check If its a Valid Column
-		if int(col) >= board.GetCol() {
-			fmt.Println("Please Enter within 0 to ", board.GetCol())
-			continue
+		for {
+			//User Input of Column
+			fmt.Println("Enter the Column you want to hit:")
+			Bcol, _ := reader.ReadString('\n')
+			Bcol = strings.TrimSpace(Bcol)
+			col, err = strconv.Atoi(Bcol)
+			if err != nil {
+				fmt.Println("Error:", err)
+				continue
+			}
+			//Check If its a Valid Column
+			if int(col) >= board.GetCol() || col < 0 {
+				fmt.Println("Please Enter within 0 to ", board.GetCol())
+				continue
+			}
+			break
 		}
 
 		mark := board.Cell[row][col].GetMark() //If that Cell Contains a ship or not
 		if mark == string(component.HitMark) || mark == string(component.MissMark) {
+			fmt.Println("This Cell is already hitted.")
 			continue
 		}
 		if mark != string(component.NoMark) {
+			fmt.Println("Yayy!!...Its A Hit.")
 			board.Cell[row][col].SetMark(component.HitMark)
 			player.IncrementHit()
 			check := resultanalyser.Analysis(board, component.ShipPoint)
@@ -88,6 +99,7 @@ func Play(player *component.Player, board *component.Board) {
 			}
 			continue
 		}
+		fmt.Println("Oopps!!!..Its a Miss.")
 		player.IncrementMiss()
 		board.Cell[row][col].SetMark(component.MissMark)
 	}
