@@ -52,6 +52,14 @@ func (b *Board) PrintBoard() {
 func (b *Board) PrintPlayerBoard() {
 	var i, j int
 	for i = 0; i < b.bRow; i++ {
+		if i == 0 {
+			fmt.Print("  ")
+			for j = 0; j < b.bCol; j++ {
+				fmt.Print(j, "  ")
+			}
+			fmt.Println()
+		}
+		fmt.Print(i, " ")
 		for j = 0; j < b.bCol; j++ {
 			m := b.Cell[i][j].GetMark()
 			if m == string(HitMark) || m == string(MissMark) {
