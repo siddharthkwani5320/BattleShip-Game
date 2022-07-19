@@ -19,7 +19,7 @@ func Analysis(board *component.Board, ShipPoint map[int][]*component.Point) bool
 		if key == cnt {
 			delete(ShipPoint, key)
 			fmt.Println("Ship of size " + strconv.Itoa(key) + " is destroyed")
-			return false
+			break
 		}
 	}
 	return len(ShipPoint) == 0
