@@ -95,7 +95,7 @@ func Play(player *component.Player, board *component.Board) {
 				fmt.Println(player.GetName(), " Wins the Game ")
 				fmt.Println("Total Hits:", player.GetHit())
 				fmt.Println("Total Miss:", player.GetMiss())
-				break
+				return
 			}
 			continue
 		}
