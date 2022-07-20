@@ -1,14 +1,14 @@
 package component
 
 type Player struct {
-	name     string
+	nm     string
 	noofHit  int
 	noofMiss int
 }
 
 func NewPlayer(name string) *Player {
 	var tempPlayer = &Player{
-		name:     name,
+		nm:     name,
 		noofHit:  0,
 		noofMiss: 0,
 	}
@@ -16,7 +16,7 @@ func NewPlayer(name string) *Player {
 }
 
 func (p *Player) GetName() string {
-	return p.name
+	return p.nm
 }
 
 func (p *Player) GetHit() int {

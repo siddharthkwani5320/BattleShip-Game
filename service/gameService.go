@@ -27,6 +27,10 @@ func CreatePlayer() *component.Player {
 	}
 
 	player := component.NewPlayer(name)
+	name1 := player.GetName() + " win "
+
+	fmt.Println(name1, "hi ")
+	fmt.Printf("%v wins the game ", name1)
 
 	return player
 }
@@ -91,8 +95,7 @@ func Play(player *component.Player, board *component.Board) {
 			check := resultanalyser.Analysis(board, component.ShipPoint)
 			if check {
 				name := player.GetName()
-				fmt.Println(name)
-				fmt.Println(player.GetName(), " Wins the Game ")
+				fmt.Printf("%s wins the game ", name)
 				fmt.Println("Total Hits:", player.GetHit())
 				fmt.Println("Total Miss:", player.GetMiss())
 				return
